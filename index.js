@@ -29,6 +29,7 @@ app.use(express.static(__dirname + '/public'));
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: false}));
 app.get('/', function (request, response) {
     response.render('pages/index');
 });
@@ -38,6 +39,21 @@ var db = admin.database();
 app.get('/', (req, res) => {
 	res.send('salut');
 })
+
+app.post('/checkId', function (req, res) {
+	const body = req.body;
+	console.log(req);
+	const uid = body['messenger user id'];
+	db.ref("owners/" + uid).once('value').then((snapshot) => {
+		const user = snapshot.val() || 'undefined';
+		if (user !== 'undefined') {
+			const response = {
+				"redirect_to_blocks": ["known_user"]
+			}
+			res.send(response);
+		}
+	})
+});
 
 app.post('/saveOwner', (req, res) => {
 	const body = req.body;
@@ -79,20 +95,6 @@ app.post('/saveWorker', (req, res) => {
 		preferedLocation: body['worker_location']
 	});
 })
-
-app.post('/checkId', function (req, res) {
-	const body = req.body;
-	const uid = body['messenger user id'];
-	db.ref("owners/" + uid).once('value').then((snapshot) => {
-		const user = snapshot.val() || 'undefined';
-		if (user !== 'undefined') {
-			const response = {
-				"redirect_to_blocks": ["known_user"]
-			}
-			res.send(response);
-		}
-	})
-});
 
 app.post('/lastOrders', (req, res) => {
 	const body = req.body;
