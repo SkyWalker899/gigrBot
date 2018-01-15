@@ -105,17 +105,17 @@ app.post('/lastOrders', (req, res) => {
 			const gigLen = user.gigs.length - 1;
 			const lastGig = user.gigs[gigLen];
 			console.log(JSON.stringify(lastGig))
-			const text = `Are you still looking for ${lastGig.need} in ${lastGig.location} ?`
+			const text = `Avez vous toujours besoin de ${lastGig.need} a ${lastGig.location} ?`
 			const buttons = [
 				{
 					"type": "show_block",
 					"block_names": ["returning owner"],
-					"title": "YES"
+					"title": "OUI"
 				},
 				{
 					"type": "show_block",
 					"block_names": ["owner_different_need"],
-					"title": "NO"
+					"title": "NON"
 				}
 			]
 			const message = messager.generateMessageWithButtons(text, buttons);
