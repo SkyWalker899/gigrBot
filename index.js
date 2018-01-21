@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 const messager = require('./lib/message-generator');
 const owner = require('./lib/owner');
 const FBAPP = require('./lib/firebase.init');
+const twilio = require('./lib/twilio');
 
 var app = express();
 
@@ -31,6 +32,12 @@ app.get('/', function (request, response) {
 
 app.get('/', (req, res) => {
 	res.send('salut');
+})
+
+app.get('/SMS', (req, res) => {
+	twilio.sendSMS('Shavoua Tov, tu as une solution pour les loyers ?', '0525584148')
+		.then((message) => res.send(message.accountSid),
+		(err) => console.log(err))
 })
 
 app.post('/checkId', function (req, res) {

@@ -12,13 +12,15 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootbot": "^1.0.14",
+    "botly": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "facebook-node-sdk": "^0.2.0",
     "firebase-admin": "^5.6.0",
     "node-wit": "^4.3.0",
     "nodemailer": "^4.4.1",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "twilio": "^3.11.0"
   },
   "repository": {
     "type": "git",
